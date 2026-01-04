@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet } from "react-native";
 
 import { ThemedText } from "@/components/themed-text";
 import { ThemedView } from "@/components/themed-view";
+import { products } from "@/data/products";
 
 export default function Index() {
   return (
@@ -23,6 +24,22 @@ export default function Index() {
           style={styles.image}
           contentFit="contain"
         />
+
+        <ThemedView style={styles.productsContainer}>
+          {products.map((product, index) => (
+            <ThemedView key={index} style={styles.product}>
+              <Image
+                source={product.image}
+                style={styles.productImage}
+                contentFit="contain"
+              />
+              <ThemedText style={styles.productName}>{product.name}</ThemedText>
+              <ThemedText style={styles.productPrice}>
+                ${product.price.toFixed(2)}
+              </ThemedText>
+            </ThemedView>
+          ))}
+        </ThemedView>
       </ThemedView>
     </ScrollView>
   );
@@ -61,5 +78,35 @@ const styles = StyleSheet.create({
     height: 300,
     borderRadius: 20,
     marginTop: 20,
+  },
+  productsContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    marginTop: 30,
+    width: "100%",
+  },
+  product: {
+    alignItems: "center",
+    marginHorizontal: 10,
+    marginBottom: 20,
+    minWidth: 150,
+  },
+  productImage: {
+    width: 120,
+    height: 120,
+    borderRadius: 15,
+    marginBottom: 10,
+  },
+  productName: {
+    fontSize: 18,
+    fontWeight: "600",
+    marginBottom: 5,
+    color: "#8B4513",
+  },
+  productPrice: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#2E7D32",
   },
 });
